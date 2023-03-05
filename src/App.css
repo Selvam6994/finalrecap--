@@ -1,8 +1,8 @@
 .App {
   text-align: center;
+ 
+  border:2px solid
 }
-
-
 
 .phone-picture {
   height: 340px;
@@ -47,4 +47,22 @@ body {
   justify-content: center;
   gap: 24px;
   margin: 24px;
+}
+.login{
+  border: 2px solid red;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.text-field{
+  width: 200px;
 }
