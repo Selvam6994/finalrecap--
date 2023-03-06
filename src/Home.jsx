@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Formik, useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export function Home() {
@@ -23,7 +23,7 @@ function LoginForm() {
       password: "Selvakumar6994",
     },
     onSubmit: async (values) => {
-      const data = await fetch("http://localhost:4000/mobileData/login", {
+      const data = await fetch("https://mobile-display-site.onrender.com/mobileData/login", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -34,7 +34,7 @@ function LoginForm() {
         setFormState("error")
       } else {
         const result = await data.json();
-        console.log(result);
+        // console.log(result);
         localStorage.setItem("token", result.token);
         navigate("/mobiles");
       }
@@ -76,6 +76,7 @@ function LoginForm() {
             formState=="success"?"Submit":"Retry"
           }
         </Button>
+        <Link to="/Signup"  variant="text">Sign up?</Link>
       </div>
     </form>
   );
