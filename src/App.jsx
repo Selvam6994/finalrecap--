@@ -35,8 +35,8 @@ function Phonelist() {
   const [mobileData, setMobileData] = useState([]);
   const get_mobile_data = async () => {
     const data = await fetch(
-      // "https://moblie-phones-site-backend.onrender.com/mobileData"
-       "http://localhost:4000/mobileData"
+       "https://mobile-display-site.onrender.com/mobileData"
+       //"http://localhost:4000/mobileData"
        ,{
         headers:{
           "x-auth-token":localStorage.getItem("token"),
@@ -44,8 +44,15 @@ function Phonelist() {
       }
      
     );
-    const json_data = await data.json();
-    setMobileData(json_data);
+     if(data.status==401){
+      console.log("error")
+      localStorage.clear();
+      window.location.href="/"
+     }else{
+      const json_data = await data.json();
+      setMobileData(json_data);
+     }
+  
   };
   useEffect(() => {
     get_mobile_data();
