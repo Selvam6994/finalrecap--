@@ -3,6 +3,7 @@ import "./App.css";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import { Home } from "./Home";
 import Signup from "./Signup";
+import Forgotpassword from "./Forgotpassword";
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Signup" element={<Signup />} />
+        <Route path="/forgotpassword" element={<Forgotpassword />} />
         <Route
           path="/mobiles"
           element={

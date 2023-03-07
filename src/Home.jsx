@@ -15,7 +15,7 @@ export function Home() {
 
 function LoginForm() {
   const navigate = useNavigate();
-  const [formState,setFormState]=useState("success");
+  const [formState, setFormState] = useState("success");
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
       username: "Selvakumar",
@@ -23,15 +23,18 @@ function LoginForm() {
       password: "Selvakumar6994",
     },
     onSubmit: async (values) => {
-      const data = await fetch("https://mobile-display-site.onrender.com/mobileData/login", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+      const data = await fetch(
+        "https://mobile-display-site.onrender.com/mobileData/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
       if (data.status == 401) {
-        setFormState("error")
+        setFormState("error");
       } else {
         const result = await data.json();
         // console.log(result);
@@ -72,11 +75,14 @@ function LoginForm() {
           variant="standard"
         />
         <Button color={formState} type="submit" variant="contained">
-          {
-            formState=="success"?"Submit":"Retry"
-          }
+          {formState == "success" ? "Submit" : "Retry"}
         </Button>
-        <Link to="/Signup"  variant="text">Sign up?</Link>
+        <Link to="/Signup" variant="text">
+          Sign up
+        </Link>
+        <Link to="/forgotpassword" variant="text">
+          forgot password?
+        </Link>
       </div>
     </form>
   );
