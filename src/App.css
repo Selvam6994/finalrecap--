@@ -68,6 +68,8 @@ form {
   justify-content: center;
   gap: 2rem;
 }
-.text-field {
-  width: 200px;
+.otpForm{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
