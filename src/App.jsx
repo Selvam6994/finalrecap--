@@ -6,6 +6,7 @@ import Signup from "./Signup";
 import Forgotpassword from "./Forgotpassword";
 import React from "react";
 import Updatepassword from "./Updatepassword";
+import api from "./global";
 
 
 
@@ -48,7 +49,7 @@ function Phonelist() {
   const get_mobile_data = async () => {
     const data = await fetch(
       // "https://mobile-display-site.onrender.com/mobileData",
-      "http://localhost:4000/mobileData",
+      `${api}/mobileData`,
       {
         headers: {
           "x-auth-token": localStorage.getItem("token"),

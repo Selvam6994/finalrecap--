@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import { Formik, useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import api from "./global";
 
 export function Home() {
   return (
@@ -24,7 +25,7 @@ function LoginForm() {
     },
     onSubmit: async (values) => {
       const data = await fetch(
-        "https://mobile-display-site.onrender.com/mobileData/login",
+        `${api}/mobileData/login`,
         {
           method: "POST",
           headers: {

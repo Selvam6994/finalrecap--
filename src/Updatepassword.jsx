@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
+import api from "./global";
 
 function updatepassword() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function updatepassword() {
     },
     onSubmit: async (values) => {
       const updatePassword = await fetch(
-        `http://localhost:4000/mobileData/${email}`,
+        `${api}/mobileData/${email}`,
         {
           method: "PUT",
           headers: { "Content-type": "application/json",

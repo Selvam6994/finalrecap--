@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Formik, useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import api from "./global";
 
 function Signup() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Signup() {
     },
     onSubmit: async (values) => {
       const postData = await fetch(
-        "http://localhost:4000/mobileData/signup",
+        `${api}/mobileData/signup`,
         {
           method: "POST",
           headers: {
