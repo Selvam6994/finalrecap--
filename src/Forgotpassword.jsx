@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { json } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Forgotpassword() {
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const [otpTextfield, setOtpSetField] = useState(false);
+  const [otpTextfield, setOtpTextField] = useState(false);
+  const [timer, setTimer] = useState();
   const formik_mail = useFormik({
     initialValues: {
       email: "",
@@ -25,55 +27,57 @@ function Forgotpassword() {
       } else {
         const result = await send_email_to_resetPassword.json();
         setMessage("");
-        setOtpSetField(true);
+        setOtpTextField(true);
+        var count = 0;
+        const timer = setInterval(() => {
+          count++;
+          setTimer(count);
+          if (count === 20) {
+            clearInterval(timer);
+            setTimer("Otp expired");
+          }
+        }, 1000);
       }
     },
   });
-
   const formik_otp = useFormik({
     initialValues: {
       otp: "",
     },
     onSubmit: async (values) => {
-      const get_otp = await fetch(
-        "http://localhost:4000/mobileData/otp",
-        {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify(values),
-        }
-      );
+      const get_otp = await fetch("http://localhost:4000/mobileData/otp", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(values),
+      });
       if (get_otp.status == 200) {
         const result = await get_otp.json();
-        setMessage("otp verified");
-        setOtpSetField(true);
-       
+        localStorage.setItem("otptoken", result.token);
+        navigate(`/${formik_mail.values.email}/updatepassword`);
       } else {
         setMessage("Invalid credentials");
       }
     },
   });
   return (
-   <div>
+    <div>
       <h2>Reset password</h2>
-      
-      {
-        (otpTextfield == false ? (
-          <form onSubmit={formik_mail.handleSubmit} className="form">
+      {otpTextfield == false ? (
+        <form onSubmit={formik_mail.handleSubmit} className="form">
           <TextField
-        name="email"
-        onChange={formik_mail.handleChange}
-        value={formik_mail.values.email}
-        id="standard-basic"
-        label="Valid email"
-        variant="standard"
-      />
-      <Button type="submit" variant="outlined">
-        Generate OTP
-      </Button>
-      </form>
-        ) : (
-          <form onSubmit={formik_otp.handleSubmit} className="form">
+            name="email"
+            onChange={formik_mail.handleChange}
+            value={formik_mail.values.email}
+            id="standard-basic"
+            label="Valid email"
+            variant="standard"
+          />
+          <Button type="submit" variant="outlined">
+            Generate OTP
+          </Button>
+        </form>
+      ) : (
+        <form onSubmit={formik_otp.handleSubmit} className="form">
           <TextField
             name="otp"
             onChange={formik_otp.handleChange}
@@ -83,14 +87,14 @@ function Forgotpassword() {
             variant="standard"
           />
           <Button type="submit" variant="outlined">
-        Submit
-      </Button>
-      </form>
-        ))
-      }
-      
+            Submit
+          </Button>
+        </form>
+      )}
+
+      <h3>{timer}</h3>
       <h2>{message}</h2>
-      </div>
+    </div>
   );
 }
 

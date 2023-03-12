@@ -4,6 +4,10 @@ import { Routes, Route, Link, Navigate } from "react-router-dom";
 import { Home } from "./Home";
 import Signup from "./Signup";
 import Forgotpassword from "./Forgotpassword";
+import React from "react";
+import Updatepassword from "./Updatepassword";
+
+
 
 
 function App() {
@@ -13,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/forgotpassword" element={<Forgotpassword />} />
+       <Route path="/:email/updatepassword" element={<Updatepassword/>}/>
         <Route
           path="/mobiles"
           element={
@@ -42,8 +47,8 @@ function Phonelist() {
   const [mobileData, setMobileData] = useState([]);
   const get_mobile_data = async () => {
     const data = await fetch(
-      "https://mobile-display-site.onrender.com/mobileData",
-      //"http://localhost:4000/mobileData"
+      // "https://mobile-display-site.onrender.com/mobileData",
+      "http://localhost:4000/mobileData",
       {
         headers: {
           "x-auth-token": localStorage.getItem("token"),
@@ -81,5 +86,7 @@ function Phone({ mobile }) {
     </div>
   );
 }
+
+
 
 export default App;

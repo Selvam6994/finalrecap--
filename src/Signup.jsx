@@ -15,7 +15,7 @@ function Signup() {
     },
     onSubmit: async (values) => {
       const postData = await fetch(
-        "https://mobile-display-site.onrender.com/mobileData/signup",
+        "http://localhost:4000/mobileData/signup",
         {
           method: "POST",
           headers: {

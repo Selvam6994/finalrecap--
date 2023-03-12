@@ -18,9 +18,9 @@ function LoginForm() {
   const [formState, setFormState] = useState("success");
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      username: "Selvakumar",
-      email: "selvakumar@gmail.com",
-      password: "Selvakumar6994",
+      username: "",
+      email: "",
+      password: "",
     },
     onSubmit: async (values) => {
       const data = await fetch(
